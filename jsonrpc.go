@@ -1030,7 +1030,7 @@ func rpcSetLocalWebServerLoopbackOnly(enabled bool) error {
 	}
 
 	// Return a message that changes require a reboot
-	message := "Web server binding changed. You must reboot the device for this change to take effect."
+	var message string
 	if enabled {
 		message = "Web server set to loopback-only mode. After reboot, the web interface will only be accessible from the device itself. You must reboot the device for this change to take effect."
 	} else {
