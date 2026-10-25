@@ -92,7 +92,13 @@ func newSession(config SessionConfig) (*Session, error) {
 		if config.LocalIP == "" || net.ParseIP(config.LocalIP) == nil {
 			scopedLogger.Info().Str("localIP", config.LocalIP).Msg("Local IP address not provided or invalid, won't set NAT1To1IPs")
 		} else {
-			webrtcSettingEngine.SetNAT1To1IPs([]string{config.LocalIP}, webrtc.ICECandidateTypeSrflx)
+			if err := webrtcSettingEngine.SetICEAddressRewriteRules(webrtc.ICEAddressRewriteRule{
+				External:        []string{config.LocalIP},
+				AsCandidateType: webrtc.ICECandidateTypeSrflx,
+				Mode:            webrtc.ICEAddressRewriteAppend,
+			}); err != nil {
+				return nil, err
+			}
 			scopedLogger.Info().Str("localIP", config.LocalIP).Msg("Setting NAT1To1IPs")
 		}
 	}

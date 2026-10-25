@@ -1030,14 +1030,14 @@ func rpcSetLocalWebServerLoopbackOnly(enabled bool) error {
 	}
 
 	// Return a message that changes require a reboot
-	message := "Web server binding changed. You must reboot the device for this change to take effect."
+	var message string
 	if enabled {
 		message = "Web server set to loopback-only mode. After reboot, the web interface will only be accessible from the device itself. You must reboot the device for this change to take effect."
 	} else {
 		message = "Web server set to listen on all interfaces. After reboot, the web interface will be accessible from other devices on the network. You must reboot the device for this change to take effect."
 	}
 
-	return fmt.Errorf(message)
+	return fmt.Errorf("%s", message)
 }
 
 var rpcHandlers = map[string]RPCHandler{
