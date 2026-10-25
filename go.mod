@@ -2,6 +2,8 @@ module github.com/jetkvm/kvm
 
 go 1.26.0
 
+toolchain go1.27.3
+
 require (
 	github.com/Masterminds/semver/v3 v3.5.0
 	github.com/beevik/ntp v1.6.0
